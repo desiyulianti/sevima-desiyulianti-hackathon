@@ -96,4 +96,24 @@ class ScoreController extends Controller
             ]);
         }
     }
+
+     //delete data 
+     public function delete($id){
+        $delete = DB::table('score')
+        ->where('score_id', '=', $id)
+        ->delete();
+
+        if($delete){
+            return Response() -> json([
+                'status' => 1,
+                'message' => 'Succes delete data!'
+        ]);
+        } else {
+            return Response() -> json([
+                'status' => 0,
+                'message' => 'Failed delete data!'
+        ]);
+        }
+
+    }
 }

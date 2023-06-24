@@ -18,19 +18,29 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//LOGIN REGISTER
+Route::post('/register', 'UserController@register');
+Route::post('/login', 'UserController@login');
 
-Route::post('/Student', 'StudentController@store');
-Route::put('/Student/{id}', 'StudentController@update');
-Route::get('/Student', 'StudentController@show');
-Route::get('/Student/{id}', 'StudentController@detail');
 
-Route::post('/Grade', 'GradeController@store');
-Route::put('/Grade/{id}', 'GradeController@update');
-Route::get('/Grade', 'GradeController@show');
-Route::get('/Grade/{id}', 'GradeController@detail');
+Route::middleware(['jwt.verify'])->group(function () {
 
-Route::post('/Score', 'ScoreController@store');
-Route::put('/Score/{id}', 'ScoreController@update');
-Route::get('/Score', 'ScoreController@show');
-Route::get('/Score/{id}', 'ScoreController@detail');
 
+    // Route::group(['middleware' => ['api.admin']], function () {
+
+        Route::post('/Student', 'StudentController@store');
+        Route::put('/Student/{id}', 'StudentController@update');
+        Route::get('/Student', 'StudentController@show');
+        Route::get('/Student/{id}', 'StudentController@detail');
+
+        Route::post('/Grade', 'GradeController@store');
+        Route::put('/Grade/{id}', 'GradeController@update');
+        Route::get('/Grade', 'GradeController@show');
+        Route::get('/Grade/{id}', 'GradeController@detail');
+
+        Route::post('/Score', 'ScoreController@store');
+        Route::put('/Score/{id}', 'ScoreController@update');
+        Route::get('/Score', 'ScoreController@show');
+        Route::get('/Score/{id}', 'ScoreController@detail');
+   // });
+});
